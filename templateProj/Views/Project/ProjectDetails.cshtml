@@ -1,0 +1,237 @@
+﻿@model templateProj.Models.Project_Members
+@{
+    Layout = null;
+    string proPicPath = Model.Umodel.ProfilePic;
+    string uName = Model.Umodel.Username;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Project base | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="../../Styles/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../Styles/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect.
+    -->
+    <link rel="stylesheet" href="../../Styles/dist/css/skins/skin-blue.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini" onload="LoadGeneral();">
+    <div class="wrapper">
+        <!-- Rendering the partial view for the navigation bar-->
+        @Html.Partial("_ManagerNavigation", Model.Umodel);
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Project Details
+                    <small></small>
+                </h1>
+            </section>
+            <ol class="breadcrumb" style="left:100px ; top:50px ; background-color:transparent">
+                <li><a href="@Url.Action("Home", "Home" )"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Project</li>
+                <li class="active">Details</li>
+            </ol>
+            <!-- Main content -->
+            <section class="content">
+
+                <div class="col-md-4">
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <i class="fa fa-file"></i>
+                            <h3 class="box-title">General</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table style="border-collapse: separate; border-spacing: 10px; " id="tbGeneral">
+                                <tr>
+                                    <td><b>Project Title</b></td>
+                                    <td id="Ptitle">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Budget</b></td>
+                                    <td id="Pbud">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Duration</b></td>
+                                    <td id="Pdura">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Technology</b></td>
+                                    <td id="Ptech">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Members</b></td>
+                                    <td id="Pmem">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Manager</b></td>
+                                    <td id="Pman">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Leader</b></td>
+                                    <td id="Plead">ption list is perfec</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Status</b></td>
+                                    <td id="Pstat">ption list is perfec</td>
+                                </tr>
+                            </table>
+
+
+                            <script>
+
+                                function LoadGeneral() {
+                                    $('#Ptitle').text('@Model.proj.P_name');
+                                    $('#Pbud').text('@Model.proj.budget');
+                                    $('#Pdura').text('@Model.proj.duration');
+                                    $('#Ptech').text('@Model.proj.tech');
+                                    $('#Pmem').text('@Model.proj.members');
+                                    $('#Pman').text('@Model.proj.Manager');
+                                    $('#Plead').text('@Model.proj.Leader');
+                                    $('#Pstat').text('@Model.proj.stat');
+                                    if ('@Model.proj.stat' == "Ongoing")
+                                        $('#Pstat').addClass("text-green");
+                                    else
+                                        $('#Pstat').addClass("text-red");
+
+                                }
+
+                         </script>
+
+
+
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- ./col -->
+                <div class="col-md-3">
+                    <div class="box box-solid" style="height:310px">
+                        <div class="box-header with-border">
+                            <i class="fa fa-users"></i>
+                            <h3 class="box-title">Members</h3>
+                        </div><!-- /.box-header -->
+
+                        <div class="box-body" style="height:260px; overflow-y:auto">
+                            @foreach (var prof in Model.UmodelList)
+                            {
+                                <div class="user-panel" style="background-color:#ECF0F5;  cursor:pointer" onclick="">
+                                    <div class="pull-left image">
+                                        <img src="@prof.ProfilePic" class="img-circle" alt="User Image">
+                                    </div>
+                                    <div class="pull-left info">
+                                        <p class="text-black">@prof.Username</p>
+                                        <!-- Status -->
+                                        <a href="@Url.Action("Profilee", "Profile", new {MemId = @prof.Username })" class="text-black"><i class="fa fa-circle text-success"></i>Online </a>
+                                    </div>
+                                </div>
+                                <br />
+
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+                           
+                                    <div class="col-md-3">
+                                        <div class="box box-solid" style="height:310px ; padding-left:10px ; padding-right:10px">
+                                            <div class="box-header with-border">
+                                                <i class="fa fa-male"></i>
+                                                <h3 class="box-title">Potential developers</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body" style="height:260px; overflow-y:auto">
+                                                @foreach (var prof in Model.CandidList)
+                                                    {
+                                                         
+                                                        
+                                                    <h5 id="@prof.id" style="border-bottom:solid ; padding-bottom:6px ; border-color:#ECF0F5 ;border-width:1px "><a href="@Url.Action("Profilee", "Profile", new {MemId = @prof.Username })"><img src="@prof.ProfilePic" class="img-circle" alt="User Image" width="30" height="30">&nbsp;&nbsp;<b>@prof.Username</b></a><a href="#" onclick="Suggest(@prof.id);"><span class="label label-warning pull-right">Suggest</span></a></h5>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                <script>
+                    function Suggest(id) {
+                       
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Project/SuggestMems',
+                            data: { UserID: id },
+
+                            traditional: true,
+                            success: function (response) {
+                                
+                                $('#' + id).fadeOut();
+
+                            }
+
+                        });
+                    }
+
+                    
+
+                </script>
+
+
+        <!-- Your Page Content Here -->
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+        <!--Rendering the partial view for the footer-->
+        @Html.Partial("_ManagerFooter");
+
+    </div><!-- ./wrapper -->
+    <!-- REQUIRED JS SCRIPTS -->
+    <!-- jQuery 2.1.4 -->
+    <script src="../../Styles/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../../Styles/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../Styles/dist/js/app.min.js"></script>
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+</body>
+</html>
+

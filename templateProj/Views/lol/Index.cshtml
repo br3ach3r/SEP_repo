@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<h2>Index</h2>
+<script>
+    var ExtraItems = [];
+    ExtraItems.push("A");
+    ExtraItems.push("B");
+    ExtraItems.push("C");
+
+    function a()
+    {
+        
+        $.ajax( {
+            type: 'POST',
+            url: '/lol/Index',
+            data: { SelectedProducts: ExtraItems },
+
+            traditional: true,
+            success: function ( response )
+            {
+                alert( 'Sucs' );
+                //window.location.href = "~/Controllers/lol/Index";
+
+            }
+        } );
+    }
+
+</script>
+@*<button type="submit" onsubmit="a();">click</button>*@
+<button onclick="a();">click</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+
